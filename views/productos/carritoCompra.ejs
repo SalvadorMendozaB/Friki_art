@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('../partials/head')%>
+    <link rel="stylesheet" href="/stylesheets/estiloCarrito.css" />
+    <link rel="stylesheet" href="/stylesheets/estilos.css" />
+    <link rel="stylesheet" href="/stylesheets/normalize.css"/>
+  </head>
+   
+
+  <style>
+    a {
+      text-decoration: none;
+    }
+  </style>
+
+  <body>
+    <header>
+      <% if (locals.usuario) {%>
+        <%-include('../partials/header', {usuario: usuario})%>
+        <% } else {%>
+        <%-include('../partials/header')%>
+        <%}%>
+    </header>
+ 
+    <main id="mainCarrito">
+      <article>
+        <img src="/images/Nier.jpeg" alt="Imagen de articulo" />
+        <div id="listaElementosArticulo">
+          <div class="nombre">Nombre del articulo</div>
+          <div class="precio" id="precioIzq">$000.00</div>
+          <br />
+          <div>
+            <i class="fas fa-plus-circle"></i>
+            <input type="text" />
+            <i class="fas fa-minus-circle"></i>
+          </div>
+          <br />
+          <button class="boton">Remover</button>
+          <br />
+          <br />
+          <br />
+        </div>
+
+        <div class="precio" id="precioDer">
+          <br />
+          <br />
+          $000.00
+        </div>
+      </article>
+      <article>
+        <img src="/images/Nier.jpeg" alt="Imagen de articulo" />
+        <div id="listaElementosArticulo">
+          <div class="nombre">Nombre del articulo</div>
+          <div class="precio" id="precioIzq">$000.00</div>
+          <br />
+          <div>
+            <i class="fas fa-plus-circle"></i>
+            <input type="text" />
+            <i class="fas fa-minus-circle"></i>
+          </div>
+          <br />
+          <button class="boton">Remover</button>
+          <br />
+          <br />
+          <br />
+        </div>
+        <div class="precio" id="precioDer">
+          <br />
+          <br />
+          $000.00
+        </div>
+      </article>
+      <article id="articuloTotal">
+        <div id="bloqueTotal">
+          <strong id="total">Total: &nbsp &nbsp &nbsp &nbsp &nbsp </strong>
+          <div class="precio" id="precioTotal">$000.00</div>
+          <br />
+          <br />
+          <button class="boton">Realizar compra</button>
+        </div>
+      </article>
+    </main>
+<footer>
+  <%-include('../partials/footer')%>
+</footer>
+    
+  </body>
+</html>

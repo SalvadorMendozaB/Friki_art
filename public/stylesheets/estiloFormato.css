@@ -1,0 +1,21 @@
+
+
+footer{
+    margin-top: 20px;
+}
+ #formato{
+    margin-bottom: 10px;
+    text-align: center;
+    border: solid 2px gray;
+    padding: 20px;
+    margin: auto;
+    max-width: 60%;
+    box-shadow: 0px 0px 10px rgb(25, 25, 112);
+
+   
+}
+.campo {
+    margin: auto;
+    width: 330px;
+    height: 30px;
+}

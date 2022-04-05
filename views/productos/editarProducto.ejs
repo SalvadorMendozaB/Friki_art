@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../partials/head')%>
+    <title>Editar producto</title>
+    <link rel="stylesheet" href="/stylesheets/estilos.css">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/estiloLogin.css">
+</head>
+<body>
+    <% if (locals.usuario) {%>
+        <%-include('../partials/header', {usuario: usuario})%>
+        <% } else {%>
+        <%-include('../partials/header')%>
+        <%}%>
+    <h2 class="titulo">Editar producto</h>
+    <form method="POST" action="/productos/<%= locals.producto ? producto.id : oldData.id %>?_method=PUT" enctype="multipart/form-data">
+        <article>
+        <strong>Nombre del producto:</strong>
+        <div><input class="campo <%= locals.errors && errors.nombre ? 'campoError' : ''%>" type="text" name="nombre" value=" <%= locals.producto ? producto.nombre : oldData.nombre %>">
+            <% if(locals.errors && errors.nombre) {  %>
+                <div class="errorText divError"><%= errors.nombre.msg %></div>
+            <% } %>
+        </div><br>
+        <strong>Categoria:</strong>
+        <div>
+            <select name="categoria" class="campo" value="<%=locals.producto ? producto.categoria : oldData.categoria %>">
+                <option value="videojuegos">Videojuegos</option>
+                <option value="cosplay">Cosplay</option>
+                <option value="juguetes">Jueguetes</option>
+                <option value="maquillaje" >Maquillaje</option>
+            </select>
+            <% if(locals.errors && errors.categoria) {  %>
+                <div class="errorText divError"><%= errors.categoria.msg %></div>
+            <% } %>
+        </div>
+        <br>
+        <strong>Colores: </strong>
+        <div><input class="campo <%= locals.errors && errors.colores ? 'campoError' : ''%>" type="text" name="colores" value="<%=locals.producto ? producto.colores : oldData.colores %>">
+            <% if(locals.errors && errors.colores) {  %>
+                <div class="errorText divError"><%= errors.colores.msg %></div>
+            <% } %>
+        </div>
+        <br>
+        <strong>Descripcion: </strong>
+        <div><textarea name="descripcion" class ="<%= locals.errors && errors.descripcion ? 'campoError' : ''%>" cols="30" rows="10" ><%=locals.producto ? producto.descripcion : oldData.descripcion %></textarea> 
+            <% if(locals.errors && errors.descripcion) {  %>
+                <div class="errorText divError"><%= errors.descripcion.msg %></div>
+            <% } %>
+        </div><br>
+        <strong>Precio:</strong>
+        <div><input class="campo <%= locals.errors && errors.precio ? 'campoError' : ''%>" type="number" name="precio" value="<%=locals.producto ? producto.precio : oldData.precio %>"> </div>
+        <% if(locals.errors && errors.precio) {  %>
+            <div class="errorText divError"><%= errors.precio.msg %></div>
+        <% } %>
+        <br>
+        <strong>Imagen:</strong>
+        <div><input class="campo <%= locals.errors && errors.imagen ? 'campoError' : ''%>" type="file" name="imagen"> </div>
+        <% if(locals.errors && errors.imagen) {  %>
+            <div class="errorText divError"><%= errors.imagen.msg %></div>
+        <% } %>
+        <br>
+        <button class="boton"><strong>Guardar</strong> </button>
+    </article>
+    </form>
+
+    <%-include('../partials/footer')%>
+    
+</body>
+</html>

@@ -1,0 +1,66 @@
+#contenedorDetalles *  {
+    text-align: center;
+}
+
+#contenedorDetalles div  {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#contenedorBotones {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#contenedorBotones button {
+    width: 120px;
+    height: 30px;
+}
+
+#contenedorFoto {
+    display: flex;
+    justify-content: center;
+}
+
+#contenedorFotoPeque {
+    display: flex;
+    justify-content: center;
+}
+
+#fotoPerfil {
+    max-height: 170px;
+    max-width: 170px;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 20px;
+
+}
+
+@media (min-width: 768px) {
+    #contenedorPrincipal {
+        display: flex;
+        flex-wrap: nowrap;
+    }
+
+    #contenedorDetalles,
+    #contenedorBotones,
+    #contenedorFoto {
+        display: inline-block;
+        width: 30%;
+    }
+
+    #contenedorDetalles * {
+        text-align: left;
+    }
+
+    #contenedorDetalles div {
+        text-align: left;
+    }
+
+    #contenedorFotoPeque {
+        align-items: flex-start;
+    }
+
+}

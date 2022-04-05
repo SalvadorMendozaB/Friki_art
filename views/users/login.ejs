@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <head>
+      <%- include('../partials/head')%>
+      <title>Login</title>
+      <link rel="stylesheet" href="/stylesheets/estiloLogin.css" />
+      <link rel="stylesheet" href="/stylesheets/estilos.css" />
+      <link rel="stylesheet" href="/stylesheets/normalize.css" />
+      
+    </head>
+  
+  </head>
+  <body>
+    <header>
+      <%-include('../partials/header')%>
+    </header>
+  
+
+    <article>
+      <% if (locals.errores) {%>
+        <h5 class="errorText"><%= errores.msg%></h5>
+        <% }%>
+
+      
+      <form action="/users/login" method="post">
+        <strong>Correo electronico:</strong>
+        <div><input class= "campo" type="text" name="email" value="<%= locals.oldData && oldData.email ? oldData.email : ''%>"></div>
+        <strong>Contraseña:</strong>
+        <div><input class= "campo" type="password" name="password"> </div>
+        <div><input type="checkbox" name="recordarme"><label for="">Recordarme</label></div>
+        <button class="boton" type="submit">Login</button>
+       
+      </form>
+        <a href="">¿Olvidaste tu contraseña?</a>
+        <a href="formatoRegistro">¿No tienes cuenta?,registrate aqui </a>
+    </article>
+    
+      
+    <%-include('../partials/footer') %>
+  </body>
+  
+</html>

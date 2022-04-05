@@ -1,0 +1,62 @@
+button {
+  padding: 5px;
+ /* width: 125px;
+  height: 25px;*/
+}
+
+ #precioDer {
+  display: none;
+}
+
+#mainCarrito img {
+  max-width: 120px;
+  max-height: 175px;
+  min-height: 175px;
+}
+
+article {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: solid 1px gray;
+  box-shadow: 0px 0px 10px rgb(25, 25, 112);
+}
+
+article img {
+  display: inline-block;
+}
+
+#listaElementosArticulo {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+input {
+  width: 120px;
+}
+
+#precioTotal,
+#total {
+  display: inline-block;
+}
+
+#bloqueTotal {
+  float: right;
+  padding-right : 33px;
+}
+
+#articuloTotal {
+  height: 100px;
+}
+
+@media (min-width: 768px) {
+  #precioIzq {
+    display: none;
+  }
+
+  #precioDer {
+    display: inline;
+    float: right;
+    margin-right: 30px;
+  }
+}

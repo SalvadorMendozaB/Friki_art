@@ -1,0 +1,79 @@
+
+
+
+.principalDiv{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    
+}
+
+main #imgDetalle{
+    max-width: 600x;
+    max-height: 600px;
+    min-height: 300px;
+    box-shadow: 0px 0px 30px rgb(25, 25, 112);
+    margin: auto;
+}
+
+button{
+    box-shadow: 0px 0px 10px rgb(25, 25, 112);
+    border-radius: 10px;
+    border-bottom: 3px;
+}
+#listaDescripcion{
+  width: 90%;
+  max-width: 25vw;
+  font-size: 25px;
+}
+#listaBoton{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+
+}
+.precio{
+    font-size: 35px;
+    color: #1b3441;
+    text-align: center; 
+    width: 100%;
+}
+#botonAñadir{
+    font-size: 30px;
+}
+.categoria{
+    color:black;
+    font-weight: bold;
+    font-size: 18px;
+}
+#contenedorBotones{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-self: flex-end;
+}
+
+.botonDetalle{
+    width: 90px;
+}
+.colores{
+    color:black;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+@media (min-width: 768px){
+    #listaBoton,
+    #listaDescripcion {
+        width: 30% ;
+    }
+}
+
+

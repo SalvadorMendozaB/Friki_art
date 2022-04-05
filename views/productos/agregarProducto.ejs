@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%-include('../partials/head')%>
+    <title>Añadir producto</title>
+    <link rel="stylesheet" href="/stylesheets/estilos.css">
+    <link rel="stylesheet" href="/stylesheets/normalize.css">
+    <link rel="stylesheet" href="/stylesheets/estiloLogin.css">
+</head>
+<body>
+    <% if (locals.usuario) {%>
+        <%-include('../partials/header', {usuario: usuario})%>
+        <% } else {%>
+        <%-include('../partials/header')%>
+        <%}%>
+    <h2 class="titulo">Añadir un nuevo producto</h2>
+    <form method="POST" action="/productos" enctype="multipart/form-data">
+        <article>
+        <strong>Nombre del producto:</strong>
+        <div><input type="text" name="nombre" 
+              class= "campo <%= locals.errors && errors.nombre ? 'campoError' : ''%>"
+              value= "<%= locals.oldData && oldData.nombre ? oldData.nombre : '' %>"> 
+            <% if(locals.errors && errors.nombre) {  %>
+                <div class="errorText divError"><%= errors.nombre.msg %></div>
+            <% } %>
+        </div>
+       
+        <br>
+        <strong>Categoria:</strong>
+        <div>
+            <% let categorias = ['Videojuegos', 'Cosplay','Juguetes','Maquillaje','Figuras de accion'];%>
+            <select name="categoria" class="campo <%= locals.errors && errors.categoria  ? 'campoError' : ''%>">
+                <% categorias.forEach ( (categoria) => {%>
+                <option value="<%= categoria%>" <%= locals.oldData && categoria == oldData.categoria ? 'selected' : '' %>> <%= categoria%> </option>
+                <% }) %>
+            </select>
+            <% if(locals.errors && errors.categoria) {  %>
+                <div class="errorText divError"><%= errors.categoria.msg %></div>
+            <% } %>
+        </div>
+        <br>
+        <strong>Colores: </strong>
+        <div><input type="text" name="colores" 
+              class="campo <%= locals.errors && errors.colores ? 'campoError' : ''%>"
+              value= "<%= locals.oldData && oldData.colores ? oldData.colores : '' %>"
+              >
+            <% if(locals.errors && errors.colores) {  %>
+                <div class="errorText divError"><%= errors.colores.msg %></div>
+            <% } %>
+        </div>
+        <br>
+        <strong>Descripcion: </strong>
+        <div><textarea name="descripcion" class ="<%= locals.errors && errors.descripcion ? 'campoError' : ''%>" cols="30" rows="10" value= "<%= locals.oldData && oldData.descripcion ? oldData.descripcion : '' %>"></textarea> 
+            <% if(locals.errors && errors.descripcion) {  %>
+                <div class="errorText divError"><%= errors.descripcion.msg %></div>
+                <% } %>
+        </div>
+        <br>
+        <strong>Precio:</strong>
+        <div><input type="number" name="precio" 
+              class ="campo <%= locals.errors && errors.precio ? 'campoError' : ''%>"
+              value= "<%= locals.oldData && oldData.precio ? oldData.precio : '' %>"
+              > 
+            <% if(locals.errors && errors.precio) {  %>
+                <div class="errorText divError"><%= errors.precio.msg %></div>
+            <% } %>
+        </div>
+        <br>
+        <strong>Imagen:</strong>
+        <div><input type="file" name="imagen" class ="campo <%= locals.errors && errors.imagen ? 'campoError' : ''%>"> 
+            <% if(locals.errors && errors.imagen) {  %>
+                <div class="errorText divError"><%= errors.imagen.msg %></div>
+                <% } %>
+        </div><br>
+        <button class="boton"><strong>Guardar</strong> </button>
+    </article>
+    </form>
+
+    <%-include('../partials/footer')%>
+    
+</body>
+</html>

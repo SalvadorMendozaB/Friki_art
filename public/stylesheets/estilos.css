@@ -1,0 +1,244 @@
+/*Pagina de iconos: 
+https://fontawesome.com/icons?d=gallery&m=free
+  Etiqueta de para hacer funcionar los iconos: 
+   <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  background-color: #b7e3f7;
+}
+
+#contenedorTitulo {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between
+  ;
+}
+
+#contenedorUsuario {
+  display: inline-block;
+  align-self: flex-end;
+  justify-self: flex-end;
+}
+
+.linkUsuario:hover {
+  color: lightblue;
+
+}
+
+.errorText {
+  color: red;
+  text-align: center;
+}
+
+.boton {
+  border-radius: 10px;
+  border: 3px solid gray;
+}
+
+.boton:hover {
+  background-color: gray;
+}
+
+header {
+  background-color: #346075 /*#346075 #B7E3F7 #6CC9F5  #576C75 #559FC2 #1e3742*/;
+  color: white;
+  padding: 10px;
+  margin-bottom: 15px;
+  min-width: 420px;
+}
+
+#titulo {
+  text-align: center;
+  font-size: 45px;
+  display: inline-block;
+
+}
+.botonAgregar{
+  height: 40px;
+  box-shadow: 0px 0px 10px rgb(25, 25, 112);
+  border-radius: 10px;
+  border-bottom: 3px;
+  padding-left: 10px;
+}
+
+/*Estilo para los elemntos de la lista del nav que se mostrarab horizontales*/
+.lihorizontal {
+  display: inline-block;
+  margin-right: 10%;
+}
+
+#separacionNav {
+  display: inline-block;
+  width: 30%;
+}
+
+#liBusquedaEscritorio {
+  display: none;
+}
+
+#iconoCarrito,
+#iconoLogin {
+  margin-right: 15px;
+}
+
+#liInicio,
+#liTienda {
+  margin-right: 15px;
+}
+
+#inputBusqueda {
+  max-width: 250px;
+  min-width: 250px;
+}
+
+#listaNav input {
+  width: 80%;
+}
+
+input {
+  border-radius: 7px;
+}
+
+#slogan {
+  display: none;
+  font-weight: bold;
+}
+
+/*Estilos para main*/
+main {
+  margin: auto;
+}
+
+#mainIndex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
+}
+
+#banner {
+  display: none;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.articulo {
+  width: 90%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: solid 1px gray;
+  box-shadow: 0px 0px 10px rgb(25, 25, 112);
+  max-width: 300px;
+  min-height: 380px;
+  display: inline-block;
+}
+
+article img {
+  width: 100%;
+  max-width: 280px;
+  max-height: 350px;
+  min-height: 350px;
+}
+
+.nombre {
+  color:black;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.precio {
+  color: #1b3441;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+/*Estilos para el footer*/
+footer {
+  background-color: #1e3742;
+  padding: 10px;
+  color: white;
+  min-width: 420px;
+}
+
+footer p,
+footer ul,
+footer div {
+  display: inline-block;
+}
+
+#iconosV {
+  display: none;
+}
+
+#iconosH {
+  display: block;
+}
+
+footer div {
+  display: none;
+}
+
+i {
+  font-size: 30px;
+}
+
+@media (min-width: 481px) {
+  #separacionNav {
+    width: 47%;
+  }
+
+  .articulo {
+    min-width: 280px;
+  }
+
+  #banner {
+    display: inline-block;
+    box-shadow: 0px 0px 10px rgb(25, 25, 112);
+  }
+
+  #iconosH {
+    display: none;
+  }
+
+  #iconosV {
+    display: inline;
+    float: right;
+  }
+}
+
+@media (min-width: 768px) {
+  #liBusqueda {
+    display: inline-block;
+  }
+
+  #liBusquedaEscritorio {
+    display: inline-block;
+  }
+
+  #liBusquedaMobile {
+    display: none;
+  }
+
+  #separacionNav {
+    width: 25%;
+  }
+}
+
+@media (min-width: 1200px) {
+  #slogan {
+    display: inline-block;
+  }
+}

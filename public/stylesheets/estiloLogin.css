@@ -1,0 +1,49 @@
+article {
+    margin:30px;
+    min-width: 420px
+}
+
+.titulo{
+    text-align: center ;
+}
+
+article * {
+    display : block;
+    margin-bottom: 10px;
+}
+
+article strong {
+    font-size: 20px;
+    text-align: center;
+}
+
+
+.campoError {
+    border: solid 3px red;
+}
+
+.divError{
+    margin:auto;
+}
+
+.campo {
+    margin: auto;
+    width: 330px;
+    height: 30px;
+}
+
+textarea {
+    margin: auto;
+    width: 330px;
+    height: 90px;
+}
+
+article button {
+    margin: auto;
+    width: 100px
+}
+
+article a{
+    margin-top: 5px;
+    color: black
+}

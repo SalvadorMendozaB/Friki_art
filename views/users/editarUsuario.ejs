@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('../partials/head')%>
+    <link rel="stylesheet" href="/stylesheets/estiloFormato.css" />
+    <link rel="stylesheet" href="/stylesheets/estilos.css" />
+    <link rel="stylesheet" href="/stylesheets/normalize.css" />
+  </head>
+    
+    
+  <body>
+    <header>
+        <% if (locals.usuario) {%>
+            <%-include('../partials/header', {usuario: usuario})%>
+            <% } else {%>
+            <%-include('../partials/header')%>
+            <%}%>
+    </header>
+    
+
+    <article id="formato">
+      <form method="POST"  action="/users/<%= usuarioEditar.id%>?_method=PUT" enctype="multipart/form-data">
+        <strong>Nombre:</strong>
+        <div><input class="campo" type="text" name="nombre" value="<%= usuarioEditar.nombre%>"></div><br>
+        <strong>Apellido:</strong>
+        <div><input class="campo" type="text" name="apellido" value="<%= usuarioEditar.apellido%>"> </div><br>
+        <strong>Correo:</strong>
+        <div><input class="campo" type="email" name="email" value="<%= usuarioEditar.email%>"> </div><br>
+        <strong>Contraseña:</strong>
+        <div><input class="campo" type="password" name="contraseña"> </div><br>
+        <strong>Confirmar Contraseña:</strong>
+        <div><input class="campo" type="password" name="confirmarPass"> </div><br>
+        <strong>Categoria:</strong>
+        <div>
+        <select class="campo" name="categoria" id="categoria">
+          <option value="administrador" <%= usuarioEditar.categoria == 'administrador' ? 'selected' : ""%>>Administrador </option>
+          <option value="cliente" <%= usuarioEditar.categoria == 'cliente' ? 'selected' : ""%>>Cliente</option>
+        </select>
+      </div><br>
+        <strong>Foto de perfil:</strong>
+        <div><input class="campo" type="file" name="imagen"></div><br>
+        <button class="boton" type="submit"><strong>Guardar</strong> </button>
+      </form>
+    </article>
+    <footer>
+      <%-include('../partials/footer')%>
+    </footer>
+    
+  </body>
+</html>

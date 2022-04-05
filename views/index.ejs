@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('partials/head')%>
+    <link rel="stylesheet" href="/stylesheets/estilos.css" />
+    <link rel="stylesheet" href="/stylesheets/normalize.css" />
+    <title>Friki-Art</title>
+  </head>
+  
+  
+
+  <style>
+    a {
+      text-decoration: none;
+    }
+  </style>
+
+  
+  <body>
+    <header>
+      <% if (locals.usuario) {%>
+      <%-include('partials/header', {usuario: usuario})%>
+      <% } else {%>
+      <%-include('partials/header')%>
+      <%}%>
+    </header>
+    <img src="/images/banner.jpg" alt="esperanding" id="banner"/> 
+    <% if(locals.usuario && usuario.categoria == "administrador") {%>
+    <a href="/productos/crearProducto">
+      <button type="submit" id="botonAgregar" title="Agregar un producto"><i class="fas fa-plus"></i></button>
+    </a>
+    <% }%>
+    <br>
+  
+    <main id="mainIndex">
+
+      <% for(var i=0; i<productos.length; i++) { %> 
+      <a href="/productos/<%= productos[i].id %>">
+        <article class="articulo">
+            <img src="/images/productos/<%= productos[i].imagen %>" alt="esperanding">
+            <div class="nombre"> <%= productos[i].nombre %></div>
+            <div class="precio"> $<%= productos[i].precio %></div>
+        </article>
+    </a>
+      <% } %> 
+
+    </main>
+    <footer>
+      <%-include('partials/footer')%>
+    </footer>
+
+ 
+  </body>
+</html>

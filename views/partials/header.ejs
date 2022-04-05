@@ -1,0 +1,31 @@
+
+    <header>
+    <div id="contenedorTitulo"><h1 id="titulo">Friki Art</h1>
+      <% if (locals.usuario) {%>
+        <p id="contenedorUsuario">
+      <img style="max-width: 40px; max-height: 40px;" src="/images/users/<%= usuario.imagen%>" alt="nothing">
+      <span><a class="linkUsuario" href="/users/<%= usuario.id%>"><%= usuario.nombre%></a> (<a class="linkUsuario" href="/users/logout">Cerrar sesion</a>)</span>
+    </p>
+      <% } %></div>
+    <nav>
+      <ul type="none" id="listaNav">
+        
+        <li id="liBusquedaMobile"> <i class="fas fa-search"></i> <input type="text" name="" id="inputBusqueda" /></li> 
+        <br>
+        <li class="lihorizontal" id="liInicio" ><a href="/inicio"> Inicio </a></li>  
+        <li class="lihorizontal" id="liTienda"><a href=""> Tienda </a></li>  
+        <li id="liBusquedaEscritorio"> <i class="fas fa-search"></i> <input type="text" name="" id="inputBusqueda" /></li>   
+        <div id="separacionNav"></div>
+        <% if (!locals.usuario) {%>
+          <li class="lihorizontal" id="iconoLogin">
+            <a href="/users/login"> <i class="fas fa-user-circle"></i> </a>
+          </li>
+          <% }%>
+        <li class="lihorizontal" id="iconoCarrito">
+          <a href="/productos/carritoCompra"> <i class="fas fa-shopping-cart"></i> </a>
+        </li>
+        <li id="slogan"> <p>¡El que no compra es porque no tiene dinero!</p></li>
+      </ul>
+    </nav>
+  </header>
+ 
