@@ -10,4 +10,6 @@ const sequelize = new Sequelize('friki_art_db', 'root', '', {
     }
   );
 
+
+
   module.exports = sequelize;

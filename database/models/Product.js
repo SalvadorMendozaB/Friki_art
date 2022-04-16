@@ -12,7 +12,11 @@ const sequelize = require("../sequelizeDb");
             type: Sequelize.STRING(100)
         },
         category: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'category',
+                key: 'category_id'
+            }
         },
         brand: {
             type: Sequelize.INTEGER,
@@ -41,12 +45,12 @@ const sequelize = require("../sequelizeDb");
     Product.associate = function(modelos) {
 
         Product.belongsTo(modelos.Category, {
-            as: "categories",
+            as: "category", 
             foreignKey: "category"
         });
 
         Product.belongsTo(modelos.Brand, {
-            as: "brands",
+            as: "brand",
             foreignKey: "brand"
         });
 

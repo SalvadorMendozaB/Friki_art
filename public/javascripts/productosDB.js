@@ -20,7 +20,7 @@ const productosDB = {
         let productos = this.obtenerTodos();
         productos.push(producto);
         let productosString = JSON.stringify(productos);
-        let ruta = path.resolve("data/productos.json");
+        let ruta = path.resolve("data JSON/productos.json");
         fs.writeFileSync(ruta,productosString);
     },
     obtenerProducto: function (id) {
@@ -39,7 +39,7 @@ const productosDB = {
         })
         productos.push(producto);
         let productosString = JSON.stringify(productos);
-        let ruta = path.resolve("data/productos.json");
+        let ruta = path.resolve("data JSON/productos.json");
         fs.writeFileSync(ruta,productosString);
 
 
@@ -50,13 +50,13 @@ const productosDB = {
             return producto.id != id;
         })
         let productosString = JSON.stringify(productos);
-        let ruta = path.resolve("data/productos.json");
+        let ruta = path.resolve("data JSON/productos.json");
         fs.writeFileSync(ruta,productosString);
         
 
     },
     leerJSON: function () {
-        let ruta = path.resolve("data/productos.json");
+        let ruta = path.resolve("data JSON/productos.json");
         let productos = fs.readFileSync(ruta,"utf-8");
         return productos;
     }

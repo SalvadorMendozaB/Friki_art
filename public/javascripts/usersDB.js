@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-let rutaUsersJson = path.resolve("data/usuarios.json");
+let rutaUsersJson = path.resolve("data JSON/usuarios.json");
 
 const usersDB = {
     obtenerUsuarios: function () {       

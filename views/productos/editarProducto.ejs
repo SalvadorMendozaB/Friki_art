@@ -14,21 +14,20 @@
         <%-include('../partials/header')%>
         <%}%>
     <h2 class="titulo">Editar producto</h>
-    <form method="POST" action="/productos/<%= locals.producto ? producto.id : oldData.id %>?_method=PUT" enctype="multipart/form-data">
+    <form method="POST" action="/productos/<%= locals.producto ? producto.product_id : oldData.id %>?_method=PUT" enctype="multipart/form-data">
         <article>
         <strong>Nombre del producto:</strong>
-        <div><input class="campo <%= locals.errors && errors.nombre ? 'campoError' : ''%>" type="text" name="nombre" value=" <%= locals.producto ? producto.nombre : oldData.nombre %>">
+        <div><input class="campo <%= locals.errors && errors.nombre ? 'campoError' : ''%>" type="text" name="nombre" value=" <%= locals.producto ? producto.name : oldData.nombre %>">
             <% if(locals.errors && errors.nombre) {  %>
                 <div class="errorText divError"><%= errors.nombre.msg %></div>
             <% } %>
         </div><br>
         <strong>Categoria:</strong>
         <div>
-            <select name="categoria" class="campo" value="<%=locals.producto ? producto.categoria : oldData.categoria %>">
-                <option value="videojuegos">Videojuegos</option>
-                <option value="cosplay">Cosplay</option>
-                <option value="juguetes">Jueguetes</option>
-                <option value="maquillaje" >Maquillaje</option>
+            <select name="categoria" class="campo" value="<%=locals.producto ? producto.category : oldData.categoria %>">
+                <% categorias.forEach ( (categoria) => {%>
+                    <option value="<%= categoria.category_id%>" <%= locals.oldData && categoria == oldData.categoria ? 'selected' : '' %>> <%= categoria.name%> </option>
+                    <% }) %>
             </select>
             <% if(locals.errors && errors.categoria) {  %>
                 <div class="errorText divError"><%= errors.categoria.msg %></div>
@@ -36,20 +35,20 @@
         </div>
         <br>
         <strong>Colores: </strong>
-        <div><input class="campo <%= locals.errors && errors.colores ? 'campoError' : ''%>" type="text" name="colores" value="<%=locals.producto ? producto.colores : oldData.colores %>">
+        <div><input class="campo <%= locals.errors && errors.colores ? 'campoError' : ''%>" type="text" name="colores" value="<%=locals.producto ? producto.colors : oldData.colores %>">
             <% if(locals.errors && errors.colores) {  %>
                 <div class="errorText divError"><%= errors.colores.msg %></div>
             <% } %>
         </div>
         <br>
         <strong>Descripcion: </strong>
-        <div><textarea name="descripcion" class ="<%= locals.errors && errors.descripcion ? 'campoError' : ''%>" cols="30" rows="10" ><%=locals.producto ? producto.descripcion : oldData.descripcion %></textarea> 
+        <div><textarea name="descripcion" class ="<%= locals.errors && errors.descripcion ? 'campoError' : ''%>" cols="30" rows="10" ><%=locals.producto ? producto.description : oldData.descripcion %></textarea> 
             <% if(locals.errors && errors.descripcion) {  %>
                 <div class="errorText divError"><%= errors.descripcion.msg %></div>
             <% } %>
         </div><br>
         <strong>Precio:</strong>
-        <div><input class="campo <%= locals.errors && errors.precio ? 'campoError' : ''%>" type="number" name="precio" value="<%=locals.producto ? producto.precio : oldData.precio %>"> </div>
+        <div><input class="campo <%= locals.errors && errors.precio ? 'campoError' : ''%>" type="number" name="precio" value="<%=locals.producto ? producto.price : oldData.precio %>"> </div>
         <% if(locals.errors && errors.precio) {  %>
             <div class="errorText divError"><%= errors.precio.msg %></div>
         <% } %>

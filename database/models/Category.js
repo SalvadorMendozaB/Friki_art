@@ -24,7 +24,7 @@ const sequelize = require("../sequelizeDb");
 
     Category.associate = function(modelos) {
         Category.hasMany(modelos.Product, {
-            as: "categories",
+            as: "category",
             foreignKey: "category"
         })
     }

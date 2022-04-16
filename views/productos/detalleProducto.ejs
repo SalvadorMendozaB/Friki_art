@@ -23,36 +23,36 @@
 
     <main>
       <div class="principalDiv">
-        <img id="imgDetalle" src="/images/productos/<%= producto.imagen %>" alt="" />
+        <img id="imgDetalle" src="/images/productos/<%= producto.image %>" alt="" />
 
         <br />
         <div id="listaDescripcion">
           <br />
-          <div class="nombre"><%= producto.nombre %></div>
+          <div class="nombre"><%= producto.name %></div>
           <br />
           <div class="categoria">Categoria</div>
-          <div class=""><p><%= producto.categoria %></p></div>
+          <div class=""><p><%= producto.category_name %></p></div>
           <br />
           <p class="descripcion">
-            <%= producto.descripcion %>
+            <%= producto.description %>
           </p>
           <div class="colores"><p>Colores</p>
-            <div><p><%= producto.colores %></p></div>
+            <div><p><%= producto.colors %></p></div>
        
         </div>
         </div>
         <br />
         <div id="listaBoton">
           <div class="contenedorCarrito">
-            <div class="precio">$<%= producto.precio %></div>
+            <div class="precio">$<%= producto.price %></div>
             <br />
             <button id="botonAñadir">Añadir al carrito</button>
           </div>
 
           <%if (locals.usuario && usuario.categoria == "administrador") {%>
           <div id="contenedorBotones">
-            <a href="editarProducto/<%= producto.id %>"><button class="botonDetalle">Editar</button></a> 
-            <form method="post" action="<%= producto.id %>?_method=DELETE">
+            <a href="editarProducto/<%= producto.product_id %>"><button class="botonDetalle">Editar</button></a> 
+            <form method="post" action="<%= producto.product_id %>?_method=DELETE">
               <button class="botonDetalle">Eliminar</button>
             </form>
           </div>

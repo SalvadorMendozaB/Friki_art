@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 let productosDB = require("../public/javascripts/productosDB.js");
+let db = require("../database/models/DefinirTodos");
 const obtenerProductos = require("../middlewares/obtenerProductos");
 
 

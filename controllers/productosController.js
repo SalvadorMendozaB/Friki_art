@@ -1,81 +1,119 @@
 let productosDB = require("../public/javascripts/productosDB.js");
-const Productos = require("../database/models/Product.js");
+const db = require("../database/models/DefinirTodos");
 const { validationResult } = require("express-validator");
+const sequelize = require("../database/sequelizeDb");
+const { QueryTypes } = require("sequelize");
 
 const controlador = {
   detalleProducto: function (req, res) {
-    console.log("Entre a detalle");
-    let producto = productosDB.obtenerProducto(req.params.id);
-    res.render("productos/detalleProducto", {
-      producto: producto,
-      usuario: req.session.usuario,
-    });
+    sequelize
+      .query(
+        `SELECT product_id, product.name, category, category.name as category_name , brand, description, price, image from product 
+                  INNER JOIN category ON product.category = category.category_id
+                  WHERE product_id = ` + req.params.id,
+        { type: QueryTypes.SELECT }
+      )
+      .then((producto, metadata) => {
+        console.log(producto);
+        res.render("productos/detalleProducto", {
+          producto: producto[0],
+          usuario: req.session.usuario,
+        });
+      })
+      .catch((ex) => {});
   },
+
   carritoCompra: function (req, res) {
     res.render("productos/carritoCompra", { usuario: req.session.usuario });
 
     res.render("carritoCompra");
   },
+
   cargarVistaCrear: function (req, res) {
-    productosDB.obtenerUltimoId();
-    res.render("productos/agregarProducto", { usuario: req.session.usuario });
-  },
-  cargarVistaEditar: function (req, res) {
-    let producto = productosDB.obtenerProducto(req.params.id);
-    res.render("productos/editarProducto", {
-      producto: producto,
-      usuario: req.session.usuario,
+    db.Category.findAll().then((categorias) => {
+      res.render("productos/agregarProducto", {
+        categorias: categorias,
+        usuario: req.session.usuario,
+      });
     });
   },
+
+  cargarVistaEditar: function (req, res) {
+    let promesaProducto = db.Product.findByPk(req.params.id);
+    let promesaCategorias = db.Category.findAll();
+
+    Promise.all([promesaProducto, promesaCategorias]).then(
+      ([producto, categorias]) => {
+        res.render("productos/editarProducto", {
+          categorias: categorias,
+          producto: producto,
+          usuario: req.session.usuario,
+        });
+      }
+    );
+  },
+
   actualizarProducto: function (req, res) {
     let errors = validationResult(req);
     if (errors.isEmpty()) {
-      producto = productosDB.obtenerProducto(req.params.id);
-      producto.nombre = req.body.nombre;
-      producto.categoria = req.body.categoria;
-      producto.colores = req.body.colores;
-      producto.descripcion = req.body.descripcion;
-      producto.precio = req.body.precio;
+
+      let productoAModificar = {
+        name: req.body.nombre,
+        category: req.body.categoria,
+        //producto.colores = req.body.colores;
+        description: req.body.descripcion,
+        price: req.body.precio,
+      };
+
       if (req.file) {
-        producto.imagen = req.file.filename;
+        productoAModificar.image = req.file.filename;
       }
+
+      db.Product.update(
+         productoAModificar ,
+        { where: { product_id: req.params.id } }
+      ).then((result) => {
+        console.log("actualizado con exito");
+        res.redirect("/inicio");
+      });
+
     } else {
-        console.log(errors);
       req.body.id = req.params.id;
-      res.render("productos/editarProducto", {
-        usuario: req.session.usuario,
-        errors: errors.mapped(),
-        oldData: req.body,
+      db.Category.findAll().then((categorias) => {
+        res.render("productos/editarProducto", {
+          categorias: categorias,
+          usuario: req.session.usuario,
+          errors: errors.mapped(),
+          oldData: req.body,
+        });
       });
     }
-
-    productosDB.actaulizarProducto(producto);
-    res.redirect("/inicio");
   },
+
   eliminarProducto: function (req, res) {
-    let id = req.params.id;
-    productosDB.eliminarProducto(id);
-    //let productos = productosDB.obtenerTodos();
-    res.redirect("/inicio");
+    db.Product.destroy({ where: { product_id: req.params.id } }).then(
+      (result) => {
+        console.log("Eliminado con exito");
+        res.redirect("/inicio");
+      }
+    );
   },
 
   añadirProducto: function (req, res) {
     let errors = validationResult(req);
     if (errors.isEmpty()) {
-      let productos = productosDB.obtenerTodos();
-      let id = productosDB.obtenerUltimoId() + 1;
       let producto = {
-        id: id,
-        nombre: req.body.nombre,
-        categoria: req.body.categoria,
-        colores: req.body.colores,
-        descripcion: req.body.descripcion,
-        precio: req.body.precio,
-        imagen: req.file.filename,
+        name: req.body.nombre,
+        category: req.body.categoria,
+        //colors: req.body.colores,
+        description: req.body.descripcion,
+        price: req.body.precio,
+        image: req.file.filename,
       };
-      productosDB.agregarProducto(producto);
-      console.log(producto);
-      res.redirect("/inicio");
+
+      db.Product.create(producto).then((result) => {
+        res.redirect("/inicio");
+      });
     } else {
       res.render("productos/agregarProducto", {
         errors: errors.mapped(),

@@ -27,7 +27,6 @@ const controlador = {
     res.redirect("/inicio");
   },
   registro: function (req, res, next) {
-    usersDB.obtenerUltimoId();
     res.render("users/formatoRegistro");
   },
   registrarUsuario: function (req,res,next) {

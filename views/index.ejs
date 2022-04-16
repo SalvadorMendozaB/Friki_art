@@ -35,11 +35,11 @@
     <main id="mainIndex">
 
       <% for(var i=0; i<productos.length; i++) { %> 
-      <a href="/productos/<%= productos[i].id %>">
+      <a href="/productos/<%= productos[i].product_id %>">
         <article class="articulo">
-            <img src="/images/productos/<%= productos[i].imagen %>" alt="esperanding">
-            <div class="nombre"> <%= productos[i].nombre %></div>
-            <div class="precio"> $<%= productos[i].precio %></div>
+            <img src="/images/productos/<%= productos[i].image %>" alt="esperanding">
+            <div class="nombre"> <%= productos[i].name %></div>
+            <div class="precio"> $<%= productos[i].price %></div>
         </article>
     </a>
       <% } %> 

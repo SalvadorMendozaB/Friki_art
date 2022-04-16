@@ -28,10 +28,9 @@
         <br>
         <strong>Categoria:</strong>
         <div>
-            <% let categorias = ['Videojuegos', 'Cosplay','Juguetes','Maquillaje','Figuras de accion'];%>
             <select name="categoria" class="campo <%= locals.errors && errors.categoria  ? 'campoError' : ''%>">
                 <% categorias.forEach ( (categoria) => {%>
-                <option value="<%= categoria%>" <%= locals.oldData && categoria == oldData.categoria ? 'selected' : '' %>> <%= categoria%> </option>
+                <option value="<%= categoria.category_id%>" <%= locals.oldData && categoria == oldData.categoria ? 'selected' : '' %>> <%= categoria.name%> </option>
                 <% }) %>
             </select>
             <% if(locals.errors && errors.categoria) {  %>
