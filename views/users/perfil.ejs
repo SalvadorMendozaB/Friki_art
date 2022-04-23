@@ -14,24 +14,36 @@
     <div id="contenedorPrincipal">
       <div id="contenedorFoto">
         <div id="contenedorFotoPeque">
-          <img id="fotoPerfil" src="/images/users/<%= usuarioDetalle.imagen %>" alt="No halle nada" />
+          <img
+            id="fotoPerfil"
+            src="/images/users/<%= usuarioDetalle.image %>"
+            alt="No halle nada"
+          />
         </div>
       </div>
-      
+
       <div id="contenedorDetalles">
         <div>Nombre de usuario</div>
-        <p><%= usuarioDetalle.nombre%></p>
+        <p><%= usuarioDetalle.username%></p>
+        <div>Nombre</div>
+        <p><%= usuarioDetalle.name%></p>
         <div>Apellidos</div>
-        <p><%= usuarioDetalle.apellido%></p>
+        <p><%= usuarioDetalle.last_name%></p>
         <div>Correo electronico</div>
         <p><%= usuarioDetalle.email%></p>
         <div>Categoria</div>
-        <p><%= usuarioDetalle.categoria%></p>
+        <p><%= usuarioDetalle.user_category_name%></p>
       </div>
       <div id="contenedorBotones">
-        <a href="/users/editar/<%= usuario.id%>"><button class="boton">Editar perfil</button></a>
+        <a href="/users/editar/<%= usuario.id%>"
+          ><button class="boton">Editar perfil</button></a
+        >
         <a href="/users/logout"><button class="boton">Cerrar sesion</button></a>
-        
+        <form action="/users/<%= usuario.id%>?_method=DELETE" method="post">
+            <button class="boton" id="botonEliminar">
+              Eliminar cuenta
+            </button>
+        </form>
       </div>
     </div>
 

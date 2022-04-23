@@ -20,6 +20,8 @@
         <div><input class="campo" type="text" name="nombre"></div><br>
         <strong>Apellido:</strong>
         <div><input class="campo" type="text" name="apellido"> </div><br>
+        <strong>Nombre de usuario:</strong>
+        <div><input class="campo" type="text" name="nombre_usuario"> </div><br>
         <strong>Correo:</strong>
         <div><input class="campo" type="email" name="email"> </div><br>
         <strong>Contraseña:</strong>
@@ -29,8 +31,9 @@
         <strong>Categoria:</strong>
         <div>
         <select class="campo" name="categoria" id="categoria">
-          <option value="administrador">Administrador </option>
-          <option value="cliente">Cliente</option>
+          <% categorias.forEach(categoria => { %>
+          <option value="<%= categoria.user_category_id %>"> <%= categoria.name %> </option>
+          <% }) %>
         </select>
       </div><br>
         <strong>Foto de perfil:</strong>

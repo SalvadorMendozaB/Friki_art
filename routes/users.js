@@ -30,8 +30,8 @@ router.get("/editar/:id", usersController.cargarVistaEditar);
 
 router.put("/:id",uploadFile.single("imagen") , usersController.editarUsuario); 
 
-
-
 router.get("/:id", usersController.detalleUsuario);
+
+router.delete("/:id",usersController.eliminarUsuario);
 
 module.exports = router;

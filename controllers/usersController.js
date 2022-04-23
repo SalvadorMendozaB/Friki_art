@@ -1,76 +1,154 @@
 const usersDB = require("../public/javascripts/usersDB");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
+const sequelize = require("../database/sequelizeDb");
+const db = require("../database/models/DefinirTodos");
 
 const controlador = {
   login: function (req, res, next) {
     res.render("users/login");
   },
   loguear: function (req, res, next) {
-    let usuarios = usersDB.obtenerUsuarios();
-    usuarios.forEach(usuario => {
-      if (usuario.email == req.body.email && bcrypt.compareSync(req.body.password,usuario.password)){
-
-        req.session.usuario = {id: usuario.id,nombre: usuario.nombre +" "+usuario.apellido,imagen: usuario.imagen, categoria: usuario.categoria};
-        if(req.body.recordarme){
-          res.cookie("usuario", usuario.id,{maxAge: 6000000});
-        }
-        res.redirect("/inicio");
-        
-      }
-    });
-    res.render("users/login",{errores: {msg: "Error de autenticacion, credenciales no validas"}, oldData: req.body});
+    sequelize
+      .query(
+        `SELECT user_id, username,email,password, image, user_category,user_category.name AS user_category_name
+            FROM user INNER JOIN user_category ON user.user_category = user_category_id`
+      )
+      .then((usuarios) => {
+        usuarios[0].forEach((usuario) => {
+          if (
+            usuario.email == req.body.email &&
+            bcrypt.compareSync(req.body.password, usuario.password)
+          ) {
+            req.session.usuario = {
+              id: usuario.user_id,
+              nombre: usuario.username,
+              imagen: usuario.image,
+              categoria: usuario.user_category_name,
+            };
+            if (req.body.recordarme) {
+              res.cookie("usuario", usuario.id, { maxAge: 6000000 });
+            }
+            res.redirect("/inicio");
+          }
+        });
+        res.render("users/login", {
+          errores: { msg: "Error de autenticacion, credenciales no validas" },
+          oldData: req.body,
+        });
+      });
   },
-  logout: function (req,res,next) {
+  logout: function (req, res, next) {
     req.session.usuario = undefined;
     res.clearCookie("usuario");
     res.redirect("/inicio");
   },
   registro: function (req, res, next) {
-    res.render("users/formatoRegistro");
+    db.User_category.findAll().then((categorias) => {
+      res.render("users/formatoRegistro", { categorias: categorias });
+    });
   },
-  registrarUsuario: function (req,res,next) {
+  registrarUsuario: function (req, res, next) {
     let usuario = {
-      id: usersDB.obtenerUltimoId() + 1,
-      nombre: req.body.nombre,
-      apellido: req.body.apellido,
+      username: req.body.nombre_usuario,
+      name: req.body.nombre,
+      last_name: req.body.apellido,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.contraseña,10),
-      categoria: req.body.categoria,
-      imagen: req.file.filename
+      password: bcrypt.hashSync(req.body.contraseña, 10),
+      user_category: req.body.categoria,
+      image: req.file.filename,
+    };
+
+    db.User.create(usuario)
+      .then((result) => {
+        res.render("users/login");
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
+  },
+
+  detalleUsuario: function (req, res, next) {
+    sequelize
+      .query(
+        `SELECT user_id, username, user.name, last_name, email, password, image, user_category, user_category.name AS user_category_name
+          FROM user INNER JOIN user_category ON user.user_category = user_category_id
+          WHERE user_id = '` +
+          req.params.id +
+          `'`
+      )
+      .then((usuario) => {
+        res.render("users/perfil", {
+          usuarioDetalle: usuario[0][0],
+          usuario: req.session.usuario,
+        });
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
+  },
+
+  cargarVistaEditar: function (req, res, next) {
+    let promesaUsuario = sequelize.query(
+      `SELECT user_id, username, user.name, last_name, email, password, image, user_category, user_category.name AS user_category_name
+          FROM user INNER JOIN user_category ON user.user_category = user_category_id
+          WHERE user_id = '` +
+        req.params.id +
+        `'`
+    );
+    let promesaCategorias = db.User_category.findAll();
+
+    Promise.all([promesaUsuario, promesaCategorias])
+      .then(([usuarioEditar, categorias]) => {
+        res.render("users/editarUsuario", {
+          usuario: req.session.usuario,
+          usuarioEditar: usuarioEditar[0][0],
+          categorias: categorias,
+        });
+      })
+      .catch((ex) => {
+        console.log(ex);
+      });
+  },
+  editarUsuario: function (req, res) {
+    let usuario = {
+      user_id: req.params.id,
+      name: req.body.nombre,
+      last_name: req.body.apellido,
+      username: req.body.nombre_usuario,
+      email: req.body.email,
+      user_category: req.body.categoria,
+    };
+
+    if (req.file) {
+      usuario.image = req.file.filename;
     }
 
-    console.log(req.body);
+    db.User.update(usuario,{ where: { user_id: req.params.id } })
+      .then((result) => {})
+      .catch((ex) => {
+        console.log(ex);
+      });
 
-    usersDB.registrarUsuario(usuario);
-    res.render("users/login");
+    req.session.usuario = {
+      id: usuario.user_id,
+      nombre: usuario.username,
+      imagen: usuario.image,
+      categoria: usuario.user_category_name,
+    };
+    res.redirect("/users/" + usuario.user_id);
   },
 
-  detalleUsuario: function (req,res,next) {
-    let usuario = usersDB.obtenerUsuario(req.params.id);
-
-    res.render("users/perfil",{usuarioDetalle: usuario, usuario: req.session.usuario});
-  },
-
-  cargarVistaEditar: function (req,res,next) {
-    let usuarioEditar = usersDB.obtenerUsuario(req.params.id);
-
-    res.render("users/editarUsuario", {usuario: req.session.usuario, usuarioEditar: usuarioEditar});
-
-  },
-  editarUsuario: function (req,res){
-   let usuario = usersDB.obtenerUsuario(req.params.id);
-   usuario.nombre = req.body.nombre;
-   usuario.apellido = req.body.apellido;
-   usuario.email = req.body.email;
-   usuario.categoria = req.body.categoria;
-   if(req.file){
-     usuario.imagen = req.file.filename;
-   }
-   req.session.usuario = { id: usuario.id,nombre: usuario.nombre+" "+usuario.apellido, imagen: usuario.imagen, categoria: usuario.categoria};
-
-   usersDB.actualizarUsuario(usuario);
-   res.redirect("/users/"+usuario.id);
-  },
+  eliminarUsuario: (req,res) => {
+    db.User.destroy({where: {user_id: req.params.id}})
+    .then(result => {
+      console.log("Usuario eliminado con exito");
+      req.session.usuario = undefined;
+      res.redirect("/inicio");
+    })
+    .catch(ex => {
+      console.log(ex);
+    })
+  }
 };
 module.exports = controlador;

@@ -19,12 +19,14 @@
     
 
     <article id="formato">
-      <form method="POST"  action="/users/<%= usuarioEditar.id%>?_method=PUT" enctype="multipart/form-data">
+      <form method="POST"  action="/users/<%= usuarioEditar.user_id%>?_method=PUT" enctype="multipart/form-data">
         <strong>Nombre:</strong>
-        <div><input class="campo" type="text" name="nombre" value="<%= usuarioEditar.nombre%>"></div><br>
+        <div><input class="campo" type="text" name="nombre" value="<%= usuarioEditar.name%>"></div><br>
         <strong>Apellido:</strong>
-        <div><input class="campo" type="text" name="apellido" value="<%= usuarioEditar.apellido%>"> </div><br>
+        <div><input class="campo" type="text" name="apellido" value="<%= usuarioEditar.last_name%>"> </div><br>
         <strong>Correo:</strong>
+        <div><input class="campo" type="text" name="nombre_usuario" value="<%= usuarioEditar.username%>"></div><br>
+        <strong>Apellido:</strong>
         <div><input class="campo" type="email" name="email" value="<%= usuarioEditar.email%>"> </div><br>
         <strong>Contraseña:</strong>
         <div><input class="campo" type="password" name="contraseña"> </div><br>
@@ -33,8 +35,9 @@
         <strong>Categoria:</strong>
         <div>
         <select class="campo" name="categoria" id="categoria">
-          <option value="administrador" <%= usuarioEditar.categoria == 'administrador' ? 'selected' : ""%>>Administrador </option>
-          <option value="cliente" <%= usuarioEditar.categoria == 'cliente' ? 'selected' : ""%>>Cliente</option>
+          <% categorias.forEach(categoria => { %>
+            <option value="<%= categoria.user_category_id %>" <%= usuarioEditar.user_category_name == categoria.name ? 'selected' : '' %>> <%= categoria.name %> </option>
+            <% }) %>
         </select>
       </div><br>
         <strong>Foto de perfil:</strong>

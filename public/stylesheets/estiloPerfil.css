@@ -10,13 +10,26 @@
 
 #contenedorBotones {
     display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
     margin-bottom: 10px;
 }
 
-#contenedorBotones button {
-    width: 120px;
+#botonEliminar{
+    background-color: rgb(123, 110, 238);
+    height: 60px;
+}
+
+#botonEliminar:hover {
+    background-color: rgb(52, 47, 97);
+}
+
+#contenedorBotones button,
+#contenedorBotones a
+ {
+    width: 140px;
     height: 30px;
+    margin-right: 10px;
 }
 
 #contenedorFoto {
@@ -45,7 +58,6 @@
     }
 
     #contenedorDetalles,
-    #contenedorBotones,
     #contenedorFoto {
         display: inline-block;
         width: 30%;

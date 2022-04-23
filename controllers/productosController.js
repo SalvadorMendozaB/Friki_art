@@ -36,7 +36,7 @@ const controlador = {
         usuario: req.session.usuario,
       });
     });
-  },
+  }, 
 
   cargarVistaEditar: function (req, res) {
     let promesaProducto = db.Product.findByPk(req.params.id);
