@@ -47,6 +47,13 @@
                 <div class="errorText divError"><%= errors.descripcion.msg %></div>
             <% } %>
         </div><br>
+        <strong>Marca:</strong>
+        <div>
+            <select name="marca" class="campo" value="<%=locals.producto ? producto.brand_name : oldData.marca %>">
+                <% marcas.forEach ( (marca) => {%>
+                    <option value="<%= marca.brand_id%>" <%= locals.oldData && marca == oldData.marca ? 'selected' : '' %>> <%= marca.name%> </option>
+                    <% }) %>
+            </select>
         <strong>Precio:</strong>
         <div><input class="campo <%= locals.errors && errors.precio ? 'campoError' : ''%>" type="number" name="precio" value="<%=locals.producto ? producto.price : oldData.precio %>"> </div>
         <% if(locals.errors && errors.precio) {  %>

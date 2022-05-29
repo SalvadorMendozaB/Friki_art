@@ -195,6 +195,10 @@ i {
   font-size: 30px;
 }
 
+.campoError {
+  border: solid 3px red;
+}
+
 @media (min-width: 481px) {
   #separacionNav {
     width: 47%;

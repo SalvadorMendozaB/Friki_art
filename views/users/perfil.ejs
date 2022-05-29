@@ -33,6 +33,9 @@
         <p><%= usuarioDetalle.email%></p>
         <div>Categoria</div>
         <p><%= usuarioDetalle.user_category_name%></p>
+        <a href="/users/editarPassword/<%= usuario.id%>"
+          ><button class="boton">Cambiar contraseña</button></a
+        >
       </div>
       <div id="contenedorBotones">
         <a href="/users/editar/<%= usuario.id%>"
