@@ -13,11 +13,12 @@
         <% } else {%>
         <%-include('../partials/header')%>
         <%}%>
+    <% console.log(locals.oldData) %>
     <h2 class="titulo">Añadir un nuevo producto</h2>
     <form method="POST" action="/productos" enctype="multipart/form-data">
         <article>
         <strong>Nombre del producto:</strong>
-        <div><input type="text" name="nombre" 
+        <div id="contenedorNombre"><input type="text" name="nombre" 
               class= "campo <%= locals.errors && errors.nombre ? 'campoError' : ''%>"
               value= "<%= locals.oldData && oldData.nombre ? oldData.nombre : '' %>"> 
               <div class="errorText divError">
@@ -29,10 +30,11 @@
        
         <br>
         <strong>Categoria:</strong>
-        <div>
+        <div id="contenedorCategoria">
             <select name="categoria" class="campo <%= locals.errors && errors.categoria  ? 'campoError' : ''%>">
+                <option value="" <%= locals.oldData && oldData.categoria != '' ? '' : 'selected'%>>--Seleccione una categoria--</option>
                 <% categorias.forEach ( (categoria) => {%>
-                <option value="<%= categoria.category_id%>" <%= locals.oldData && categoria == oldData.categoria ? 'selected' : '' %>> <%= categoria.name%> </option>
+                <option value="<%= categoria.category_id%>" <%= locals.oldData && categoria.category_id == oldData.categoria ? 'selected' : '' %>> <%= categoria.name%> </option>
                 <% }) %>
             </select>
             <div class="errorText divError">
@@ -43,7 +45,7 @@
         </div>
         <br>
         <strong>Colores: </strong>
-        <div><input type="text" name="colores" 
+        <div id="contenedorColores"><input type="text" name="colores" 
               class="campo <%= locals.errors && errors.colores ? 'campoError' : ''%>"
               value= "<%= locals.oldData && oldData.colores ? oldData.colores : '' %>"
               >
@@ -55,7 +57,7 @@
         </div>
         <br>
         <strong>Descripcion: </strong>
-        <div><textarea name="descripcion" class ="<%= locals.errors && errors.descripcion ? 'campoError' : ''%>" cols="30" rows="10" value= "<%= locals.oldData && oldData.descripcion ? oldData.descripcion : '' %>"></textarea> 
+        <div id="contenedorDescripcion"><textarea name="descripcion" class ="<%= locals.errors && errors.descripcion ? 'campoError' : ''%>" cols="30" rows="10" value= "<%= locals.oldData && oldData.descripcion ? oldData.descripcion : '' %>"></textarea> 
             <div class="errorText divError">
             <% if(locals.errors && errors.descripcion) {  %>
                 <%= errors.descripcion.msg %>
@@ -63,14 +65,22 @@
             </div>
         </div>
         <strong>Marca: </strong>
-        <select name="marca" class="campo <%= locals.errors && errors.categoria  ? 'campoError' : ''%>">
+        <div id="contenedorMarca">
+        <select name="marca" class="campo <%= locals.errors && errors.marca  ? 'campoError' : ''%>">
+            <option value="" <%= locals.oldData && oldData.marca != '' ? '' : 'selected'%>>--Seleccione una marca--</option>
             <% locals.marcas.forEach ( (marca) => {%>
-            <option value="<%= marca.brand_id%>" <%= locals.oldData && marca == oldData.marca ? 'selected' : '' %>> <%= marca.name%> </option>
+            <option value="<%= marca.brand_id%>" <%= locals.oldData && marca.brand_id == oldData.marca ? 'selected' : '' %>> <%= marca.name%> </option>
             <% }) %>
         </select>
+        <div class="errorText divError">
+            <% if(locals.errors && errors.marca) {  %>
+                <%= errors.marca.msg %>
+                <% } %> 
+            </div>
+    </div>
         <br>
         <strong>Precio:</strong>
-        <div><input type="number" name="precio" 
+        <div id="contenedorPrecio"><input type="number" name="precio" 
               class ="campo <%= locals.errors && errors.precio ? 'campoError' : ''%>"
               value= "<%= locals.oldData && oldData.precio ? oldData.precio : '' %>"
               > 
@@ -82,7 +92,7 @@
         </div>
         <br>
         <strong>Imagen:</strong>
-        <div><input type="file" name="imagen" class ="campo <%= locals.errors && errors.imagen ? 'campoError' : ''%>"> 
+        <div id="contenedorImagen"><input type="file" name="imagen" class ="campo <%= locals.errors && errors.imagen ? 'campoError' : ''%>"> 
             <div class="errorText divError">
             <% if(locals.errors && errors.imagen) {  %>
                 <%= errors.imagen.msg %>
@@ -96,4 +106,5 @@
     <%-include('../partials/footer')%>
     
 </body>
+<script src="/javascripts/Validaciones productos/ValidacionesCrear.js"></script>
 </html>

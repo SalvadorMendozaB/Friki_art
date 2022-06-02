@@ -36,7 +36,11 @@ const validaciones = [
     .notEmpty()
     .withMessage("Debes de introducir una descripción")
     .bail()
-    .isLength({ min: 20, max: undefined }),
+    .isLength({ min: 20, max: undefined })
+    .withMessage("La descripcion debe tener al menos 20 caracteres"),
+  check("marca")
+    .notEmpty()
+    .withMessage("Debes de seleccionar una marca"),
   check("precio")
     .notEmpty()
     .withMessage("Debes de introducir un precio")

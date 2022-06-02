@@ -8,6 +8,9 @@ const obtenerProductos = function (req,res,next) {
         req.productos = Productos;
         next();
     })
+    .catch(ex => {
+        console.log(ex);
+    })
 
 }
 
