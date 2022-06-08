@@ -9,7 +9,7 @@
 
   <body>
     <header><%-include('../partials/header')%></header>
-
+ 
     <article id="formato">
       <form
         action="/users/registrar"
@@ -17,93 +17,114 @@
         enctype="multipart/form-data"
       >
         <strong>Nombre:</strong>
-        <div>
+        <div id="contenedorNombre">
           <input
             type="text"
             name="nombre"
             class="campo <%= locals.errors && errors.nombre ? 'campoError' : ''%>"
             value="<%= locals.oldData && oldData.nombre ? oldData.nombre : '' %>"
           />
+          <div class="errorText divError">
           <% if(locals.errors && errors.nombre) { %>
-          <div class="errorText divError"><%= errors.nombre.msg %></div>
+          <%= errors.nombre.msg %>
           <% } %>
+        </div>
         </div>
         <br />
         <strong>Apellido:</strong>
-        <div>
+        <div id="contenedorApellido">
           <input
             type="text"
             name="apellido"
             class="campo <%= locals.errors && errors.apellido ? 'campoError' : ''%>"
             value="<%= locals.oldData && oldData.apellido ? oldData.apellido : '' %>"
           />
+          <div class="errorText divError">
           <% if(locals.errors && errors.apellido) { %>
-          <div class="errorText divError"><%= errors.apellido.msg %></div>
+          <%= errors.apellido.msg %>
           <% } %>
+        </div>
         </div>
         <br />
         <strong>Nombre de usuario:</strong>
-        <div>
+        <div id="contenedorNombreUsuario"> 
           <input
             type="text"
             name="nombre_usuario"
             class="campo <%= locals.errors && errors.nombre_usuario ? 'campoError' : ''%>"
             value="<%= locals.oldData && oldData.nombre_usuario ? oldData.nombre_usuario : '' %>"
           />
+          <div class="errorText divError">
           <% if(locals.errors && errors.nombre_usuario) { %>
-          <div class="errorText divError"><%= errors.nombre_usuario.msg %></div>
+          <%= errors.nombre_usuario.msg %>
           <% } %>
+        </div>
         </div>
         <br />
         <strong>Correo:</strong>
-        <div>
+        <div id="contenedorEmail">
           <input
             type="email"
             name="email"
             class="campo <%= locals.errors && errors.email ? 'campoError' : ''%>"
             value="<%= locals.oldData && oldData.email ? oldData.email : '' %>"
           />
+          <div class="errorText divError">
           <% if(locals.errors && errors.email) { %>
-          <div class="errorText divError"><%= errors.email.msg %></div>
+          <%= errors.email.msg %>
           <% } %>
+        </div>
         </div>
         <br />
         <strong>Contraseña:</strong>
-        <div>
+        <div id="contenedorPassword">
           <input
             type="password"
             name="contraseña"
             class="campo <%= locals.errors && errors.contraseña ? 'campoError' : ''%>"
             value="<%= locals.oldData && oldData.contraseña ? oldData.contraseña : '' %>"
           />
+          <div class="errorText divError">
           <% if(locals.errors && errors.contraseña) { %>
-          <div class="errorText divError"><%= errors.contraseña.msg %></div>
+          <%= errors.contraseña.msg %>
           <% } %>
+        </div>
         </div>
         <br />
         <strong>Confirmar Contraseña:</strong>
-        <div><input class="campo" type="password" name="confirmarPass" /></div>
+        <div id="contenedorConfirmarPass"><input class="campo" type="password" name="confirmarPass" />
+          <div class="errorText divError">
+            <% if(locals.errors && errors.confirmarPass) { %>
+            <%= errors.confirmarPass.msg %>
+            <% } %>
+          </div>
+        </div>
+        
         <br />
         <strong>Categoria:</strong>
-        <div>
+        <div id="contenedorCategoria">
           <select class="campo <%= locals.errors && errors.categoria ? 'campoError' : ''%>" name="categoria" id="categoria">
-            <option value="undefined" <%= locals.oldData && oldData.categoria != 'undefined' ? '' : 'selected'  %>>--Seleccione una categoria--</option>
+            <option value="" <%= locals.oldData && oldData.categoria != '' ? '' : 'selected'  %>>--Seleccione una categoria--</option>
             <% categorias.forEach(categoria => { %>
-            <option value="<%= categoria.user_category_id %>" <%= locals.oldData && categoria == oldData.categoria ? 'selected' : '' %>>
+            <option value="<%= categoria.user_category_id %>" <%= locals.oldData && categoria.category_id == oldData.categoria ? 'selected' : '' %>>
               <%= categoria.name %>
             </option>
             <% }) %>
           </select>
+          <div class="errorText divError">
           <% if(locals.errors && errors.categoria) {  %>
-            <div class="errorText divError"><%= errors.categoria.msg %></div>
+            <%= errors.categoria.msg %>
             <% } %>
+          </div>
         </div>
         <br />
         <strong>Foto de perfil:</strong>
-        <div><input type="file" name="imagen" class ="campo <%= locals.errors && errors.imagen ? 'campoError' : ''%>"/>
+        <div id="contenedorImagen"><input type="file" name="imagen" class ="campo <%= locals.errors && errors.imagen ? 'campoError' : ''%>"/>
+          <div class="errorText divError">
           <% if(locals.errors && errors.imagen) {  %>
-            <div class="errorText divError"><%= errors.imagen.msg %></div>
+            <%= errors.imagen.msg %>
             <% } %>
+          </div>
         </div>
         <br />
         <button class="boton" type="submit">
@@ -113,4 +134,5 @@
     </article>
     <footer><%-include('../partials/footer')%></footer>
   </body>
+  <script src="/javascripts/Validaciones usuarios/ValidacionesRegistro.js"></script>
 </html>

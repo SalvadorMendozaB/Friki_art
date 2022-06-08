@@ -55,9 +55,10 @@
             <% } %>
         </div>
         </div>
-        <br>
+        <br> 
         <strong>Descripcion: </strong>
-        <div id="contenedorDescripcion"><textarea name="descripcion" class ="<%= locals.errors && errors.descripcion ? 'campoError' : ''%>" cols="30" rows="10" value= "<%= locals.oldData && oldData.descripcion ? oldData.descripcion : '' %>"></textarea> 
+        <div id="contenedorDescripcion"><textarea name="descripcion" class ="<%= locals.errors && errors.descripcion ? 'campoError' : ''%>" cols="30" rows="10" value=""><%= locals.oldData && oldData.descripcion ? oldData.descripcion : '' %>
+        </textarea> 
             <div class="errorText divError">
             <% if(locals.errors && errors.descripcion) {  %>
                 <%= errors.descripcion.msg %>

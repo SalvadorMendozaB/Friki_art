@@ -85,8 +85,7 @@ window.onload = () => {
       if (!inputPrecio.classList.contains("campoError")) {
         inputPrecio.classList.add("campoError");
       }
-    }
-    else if (inputPrecio.value.isNaN()) {
+    } else if (isNaN(inputPrecio.value)) {
       divErrorPrecio.innerHTML =
         "Debes de introducir un formato de precio valido";
       if (!inputPrecio.classList.contains("campoError")) {
@@ -98,6 +97,30 @@ window.onload = () => {
     }
   }
 
+  function validacionImagen(event) {
+    let extensionesValidas = ["jpg", "jpeg", "png", "gif"];
+
+    if (inputImagen.files.length < 1) {
+      divErrorImagen.innerHTML = "Debes de seleccionar una imagen";
+      if (!inputImagen.classList.contains("campoError")) {
+        inputImagen.classList.add("campoError");
+      }
+    } else {
+      let tipo = inputImagen.files[0].type.split("/");
+      let extension = tipo[1];
+
+      if (extensionesValidas.includes(extension)) {
+        divErrorImagen.innerText = "";
+        inputImagen.classList.remove("campoError");
+      } else {
+        divErrorImagen.innerHTML = "Extension de archivo no valida";
+        if (!inputImagen.classList.contains("campoError")) {
+          inputImagen.classList.add("campoError");
+        }
+      }
+    }
+  } 
+
   inputNombre.addEventListener("change", validacionNombre);
   inputNombre.addEventListener("blur", validacionNombre);
   selectCategoria.addEventListener("change", validacionCategoria);
@@ -108,4 +131,6 @@ window.onload = () => {
   selectMarca.addEventListener("blur", validacionMarca);
   inputPrecio.addEventListener("change", validacionPrecio);
   inputPrecio.addEventListener("blur", validacionPrecio);
+  inputImagen.addEventListener("change", validacionImagen);
+  inputImagen.addEventListener("blur", validacionImagen);
 };

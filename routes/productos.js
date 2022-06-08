@@ -56,7 +56,7 @@ const validaciones = [
         return true;
       } else {
         throw new Error(
-          "Extension de archivo no valida, extensiones pemritidas ${extensionesValidas.join(' ,')}"
+          "Extension de archivo no valida"
         );
       }
     }

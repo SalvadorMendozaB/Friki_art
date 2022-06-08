@@ -6,7 +6,7 @@ const db = require("../database/models/DefinirTodos");
 const { validationResult } = require("express-validator");
 const fs = require("fs");
 const path = require("path");
-
+ 
 const controlador = {
   login: function (req, res, next) {
     res.render("users/login");

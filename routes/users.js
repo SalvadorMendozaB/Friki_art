@@ -8,7 +8,7 @@ const db = require("../database/models/DefinirTodos");
 const bcrypt = require("bcryptjs");
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./public/images/users");
+    cb(null, "./public/images/users"); 
   },
   filename: function (req, file, cb) {
     cb(
@@ -98,7 +98,7 @@ const validacionesRegistro = [
     .withMessage("Ambas contraseñas deben de coincidir"),
   check("categoria")
     .custom((value, { req }) => {
-      if (value == "undefined") {
+      if (value == "") {
         throw new Error("");
       } else {
         return true;
@@ -175,7 +175,7 @@ const validacionesEdicion = [
     .withMessage("Ambas contraseñas deben de coincidir"),
   check("categoria")
     .custom((value, { req }) => {
-      if (value == "undefined") {
+      if (value == "") {
         throw new Error("");
       } else {
         return true;
